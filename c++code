@@ -1,0 +1,50 @@
+
+#include <bits/stdc++.h>
+
+
+using namespace std;
+
+int main()
+{
+    int n,m,i,j;
+    cin>>n>>m;
+   vector<pair<int,int>>adj[n];
+   for(i=0;i<m;i++)
+   {
+       int u,v,w;
+       cin>>u>>v>>w;
+       adj[u].push_back({v,w});
+       adj[v].push_back({u,w});
+   }
+ 
+vector<int>dis(n,INT_MAX);
+int src=0;
+queue<int>q;
+dis[src]=0;
+q.push(0);
+while(!q.empty())
+{
+    int a=q.front();
+    q.pop();
+    for(auto x:adj[a])
+    { 
+      
+        if(dis[x.first]!=INT_MAX)
+        {
+            if(dis[a]+x.second<dis[x.first])
+            {
+              dis[x.first]=  dis[a]+x.second;
+            }
+           
+        }
+        else
+        {
+         dis[x.first]=  dis[a]+x.second; 
+         q.push(x.first);
+        }
+    }
+}
+for(int i=0;i<n;i++)
+printf("%d ",dis[i]);
+    return 0;
+}
